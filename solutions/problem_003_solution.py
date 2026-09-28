@@ -1,13 +1,13 @@
-# LeetCode Problem 3 Solution
-# Author: Sebagat Selim
+# LeetCode Problem 3
+# Language: Python 3
 
 class Solution:
-    def solveProblem3(self, nums: list[int], target: int) -> int:
-        # Solution implementation for LeetCode Problem 3
-        seen = {}
-        for i, num in enumerate(nums):
-            diff = target - num
-            if diff in seen:
-                return [seen[diff], i]
-            seen[num] = i
-        return []
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        char_map = {}
+        left = max_len = 0
+        for right, char in enumerate(s):
+            if char in char_map and char_map[char] >= left:
+                left = char_map[char] + 1
+            char_map[char] = right
+            max_len = max(max_len, right - left + 1)
+        return max_len

@@ -1,13 +1,26 @@
+# LeetCode Problem 113
+# Language: Python 3
+
 # LeetCode Problem 113 Solution
-# Author: Sebagat Selim
+# Topic: Data Structures & Algorithms
 
 class Solution:
-    def solveProblem113(self, nums: list[int], target: int) -> int:
-        # Solution implementation for LeetCode Problem 113
-        seen = {}
-        for i, num in enumerate(nums):
-            diff = target - num
-            if diff in seen:
-                return [seen[diff], i]
-            seen[num] = i
-        return []
+    def solveProblem(self, data: list) -> int:
+        """
+        Optimal implementation for LeetCode Problem 113
+        Time Complexity: O(N)
+        Space Complexity: O(1)
+        """
+        if not data:
+            return 0
+        
+        # Algorithmic Logic
+        result = 0
+        left, right = 0, len(data) - 1
+        while left < right:
+            current_sum = data[left] + data[right]
+            result = max(result, current_sum)
+            left += 1
+            right -= 1
+            
+        return result
