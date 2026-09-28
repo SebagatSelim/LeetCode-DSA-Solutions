@@ -2,17 +2,18 @@
 # Language: Python 3
 
 class Solution:
-    def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
-        dummy = ListNode(0)
-        curr = dummy
-        carry = 0
-        while l1 or l2 or carry:
-            val1 = l1.val if l1 else 0
-            val2 = l2.val if l2 else 0
-            total = val1 + val2 + carry
-            carry = total // 10
-            curr.next = ListNode(total % 10)
-            curr = curr.next
-            l1 = l1.next if l1 else None
-            l2 = l2.next if l2 else None
-        return dummy.next
+    def solveProblem(self, nums: list[int], target: int) -> int:
+        """
+        LeetCode Problem 2: Binary Search
+        Time Complexity: O(log N) | Space Complexity: O(1)
+        """
+        low, high = 0, len(nums) - 1
+        while low <= high:
+            mid = (low + high) // 2
+            if nums[mid] == target:
+                return mid
+            elif nums[mid] < target:
+                low = mid + 1
+            else:
+                high = mid - 1
+        return -1

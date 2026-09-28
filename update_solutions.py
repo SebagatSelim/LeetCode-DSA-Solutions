@@ -1,7 +1,11 @@
 import os
+import shutil
 
-# Create/Ensure solutions directory exists
 SOLUTIONS_DIR = "solutions"
+
+# Clear old directory to remove non-padded files
+if os.path.exists(SOLUTIONS_DIR):
+    shutil.rmtree(SOLUTIONS_DIR)
 os.makedirs(SOLUTIONS_DIR, exist_ok=True)
 
 # Diversity of Real DSA Patterns & Standard LeetCode Solutions
@@ -148,12 +152,13 @@ class Solution:
 '''
 ]
 
-print("Generating 600 distinct solution files...")
+print("Regenerating 600 files with zero-padded numbers for perfect sorting...")
 
 for i in range(1, 601):
-    file_path = os.path.join(SOLUTIONS_DIR, f"problem_{i}_solution.py")
+    # Formats number with 3 digits: 001, 002, ..., 059, ..., 600
+    file_name = f"problem_{i:03d}_solution.py"
+    file_path = os.path.join(SOLUTIONS_DIR, file_name)
     
-    # Pick a distinct template based on problem number
     template_index = (i - 1) % len(TEMPLATES)
     code_body = TEMPLATES[template_index].replace("{num}", str(i))
     
@@ -165,4 +170,4 @@ for i in range(1, 601):
     with open(file_path, "w", encoding="utf-8") as f:
         f.write(content)
 
-print("Successfully generated 600 varied algorithm solutions!")
+print("Done! All 600 files are now zero-padded and perfectly ordered.")
