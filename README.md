@@ -4,7 +4,7 @@ README.md
 
 This repository contains my personal Python solutions to **600+ LeetCode Data Structures and Algorithms problems**.
 
-## 📌 Topics Covered
+# Topics Covered
 - Arrays & Hashing
 - Two Pointers
 - Sliding Window
@@ -12,5 +12,5 @@ This repository contains my personal Python solutions to **600+ LeetCode Data St
 - Linked List & Trees
 - Dynamic Programming
 
-## 🚀 Language
+# Language
 - **Python 3**
