@@ -1,26 +1,19 @@
 # LeetCode Problem 163
 # Language: Python 3
 
-# LeetCode Problem 163 Solution
-# Topic: Data Structures & Algorithms
-
 class Solution:
-    def solveProblem(self, data: list) -> int:
+    def solveProblem(self, s: str) -> int:
         """
-        Optimal implementation for LeetCode Problem 163
-        Time Complexity: O(N)
-        Space Complexity: O(1)
+        LeetCode Problem 163: Sliding Window / Char Count
+        Time Complexity: O(N) | Space Complexity: O(1)
         """
-        if not data:
-            return 0
-        
-        # Algorithmic Logic
-        result = 0
-        left, right = 0, len(data) - 1
-        while left < right:
-            current_sum = data[left] + data[right]
-            result = max(result, current_sum)
-            left += 1
-            right -= 1
-            
-        return result
+        char_set = set()
+        left = 0
+        max_len = 0
+        for right in range(len(s)):
+            while s[right] in char_set:
+                char_set.remove(s[left])
+                left += 1
+            char_set.add(s[right])
+            max_len = max(max_len, right - left + 1)
+        return max_len

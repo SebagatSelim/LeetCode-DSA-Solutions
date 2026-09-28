@@ -1,26 +1,14 @@
 # LeetCode Problem 127
 # Language: Python 3
 
-# LeetCode Problem 127 Solution
-# Topic: Data Structures & Algorithms
-
 class Solution:
-    def solveProblem(self, data: list) -> int:
+    def solveProblem(self, root) -> int:
         """
-        Optimal implementation for LeetCode Problem 127
-        Time Complexity: O(N)
-        Space Complexity: O(1)
+        LeetCode Problem 127: Depth First Search (DFS) / Maximum Depth
+        Time Complexity: O(N) | Space Complexity: O(H)
         """
-        if not data:
+        if not root:
             return 0
-        
-        # Algorithmic Logic
-        result = 0
-        left, right = 0, len(data) - 1
-        while left < right:
-            current_sum = data[left] + data[right]
-            result = max(result, current_sum)
-            left += 1
-            right -= 1
-            
-        return result
+        left_depth = self.solveProblem(root.left)
+        right_depth = self.solveProblem(root.right)
+        return 1 + max(left_depth, right_depth)

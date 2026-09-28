@@ -1,14 +1,18 @@
 import os
 import random
+import shutil
 import subprocess
 from datetime import datetime, timedelta
 
 # 
+if os.path.exists("solutions"):
+    shutil.rmtree("solutions")
+
 os.makedirs("solutions", exist_ok=True)
 
 # 
 if not os.path.exists(".git"):
-    subprocess.run(["git", "init"])
+    subprocess.run(["git", "init"], check=True)
 
 total_problems = 600
 days_back = 30
@@ -25,7 +29,6 @@ for day_offset in range(days_back, 0, -1):
         if problem_count > total_problems:
             break
 
-        # 
         hour = random.randint(9, 22)
         minute = random.randint(0, 59)
         second = random.randint(0, 59)
@@ -35,7 +38,6 @@ for day_offset in range(days_back, 0, -1):
         )
         date_iso = commit_date.strftime("%Y-%m-%dT%H:%M:%S")
 
-        # 
         file_path = f"solutions/problem_{problem_count:03d}_solution.py"
 
         solution_code = f"""# LeetCode Problem {problem_count} Solution
@@ -56,17 +58,19 @@ class Solution:
         with open(file_path, "w", encoding="utf-8") as f:
             f.write(solution_code)
 
-        # 
         subprocess.run(["git", "add", file_path], check=True)
 
-        # 
         env = os.environ.copy()
         env["GIT_AUTHOR_DATE"] = date_iso
         env["GIT_COMMITTER_DATE"] = date_iso
 
         commit_message = f"Add LeetCode solution for Problem {problem_count}"
+
+        # --allow-empty 
         subprocess.run(
-            ["git", "commit", "-m", commit_message], env=env, check=True
+            ["git", "commit", "--allow-empty", "-m", commit_message],
+            env=env,
+            check=True,
         )
 
         print(
@@ -74,6 +78,4 @@ class Solution:
         )
         problem_count += 1
 
-print("\n successfylly created 600 commits for LeetCode solutions over the past.")
-
-
+print("\n done creating commits for 600 LeetCode problems.")

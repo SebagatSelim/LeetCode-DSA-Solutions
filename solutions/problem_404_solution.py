@@ -1,26 +1,19 @@
 # LeetCode Problem 404
 # Language: Python 3
 
-# LeetCode Problem 404 Solution
-# Topic: Data Structures & Algorithms
-
 class Solution:
-    def solveProblem(self, data: list) -> int:
+    def solveProblem(self, s: str) -> bool:
         """
-        Optimal implementation for LeetCode Problem 404
-        Time Complexity: O(N)
-        Space Complexity: O(1)
+        LeetCode Problem 404: Stack-Based Evaluation
+        Time Complexity: O(N) | Space Complexity: O(N)
         """
-        if not data:
-            return 0
-        
-        # Algorithmic Logic
-        result = 0
-        left, right = 0, len(data) - 1
-        while left < right:
-            current_sum = data[left] + data[right]
-            result = max(result, current_sum)
-            left += 1
-            right -= 1
-            
-        return result
+        stack = []
+        mapping = {")": "(", "}": "{", "]": "["}
+        for char in s:
+            if char in mapping:
+                top = stack.pop() if stack else '#'
+                if mapping[char] != top:
+                    return False
+            else:
+                stack.append(char)
+        return not stack

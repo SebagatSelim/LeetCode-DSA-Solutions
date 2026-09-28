@@ -1,26 +1,16 @@
 # LeetCode Problem 494
 # Language: Python 3
 
-# LeetCode Problem 494 Solution
-# Topic: Data Structures & Algorithms
-
 class Solution:
-    def solveProblem(self, data: list) -> int:
+    def solveProblem(self, head) -> bool:
         """
-        Optimal implementation for LeetCode Problem 494
-        Time Complexity: O(N)
-        Space Complexity: O(1)
+        LeetCode Problem 494: Fast & Slow Pointer (Floyd's Cycle Detection)
+        Time Complexity: O(N) | Space Complexity: O(1)
         """
-        if not data:
-            return 0
-        
-        # Algorithmic Logic
-        result = 0
-        left, right = 0, len(data) - 1
-        while left < right:
-            current_sum = data[left] + data[right]
-            result = max(result, current_sum)
-            left += 1
-            right -= 1
-            
-        return result
+        slow = fast = head
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+            if slow == fast:
+                return True
+        return False
